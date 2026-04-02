@@ -1,5 +1,3 @@
-# billion-scale-chemical-search
-
 # Billion-Scale Chemical Similarity Search
 
 A high-performance chemical search engine built with C++, RDKit and FAISS for million to billion scale molecular libraries.
