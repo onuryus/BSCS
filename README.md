@@ -35,6 +35,9 @@ SMILES
   -> exact similarity reranking
 
 
+<p align="center"> <img src="pics/model.png" width="700"/> </p> 
+
+
 
 ## ⚙️ Installation
 
