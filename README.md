@@ -2,7 +2,7 @@
 
 # Billion-Scale Chemical Similarity Search
 
-A high-performance chemical search engine built with RDKit and FAISS for million- to billion-scale molecular libraries.
+A high-performance chemical search engine built with C++, RDKit and FAISS for million to billion scale molecular libraries.
 
 It uses Morgan fingerprints, FAISS IVFPQ indexing, and exact reranking with multiple similarity metrics.
 
