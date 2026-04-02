@@ -398,6 +398,6 @@ Query time
 
 Memory usage
 ██████████████ 12–14 GB
-
+```
 <p><strong>⚡ Note:</strong> Indexing is a one-time cost.  
 Once the index is built, it can be reused for all future searches without rebuilding.</p>
