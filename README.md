@@ -332,13 +332,6 @@ Other metrics and an example
       <td>Higher → slower search</td>
       <td><code>32</code></td>
     </tr>
-    <tr>
-      <td><code>--max_codes</code></td>
-      <td>Maximum number of codes scanned during search (limits computation)</td>
-      <td>Lower → less accurate</td>
-      <td>Lower → faster</td>
-      <td><code>0</code> (disabled)</td>
-    </tr>
   </tbody>
 </table>
 
