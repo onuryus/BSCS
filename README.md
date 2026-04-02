@@ -148,3 +148,55 @@ Other metrics and an example
     </tr>
   </tbody>
 </table>
+
+
+
+
+
+
+## 📊 Performance
+
+### 🚀 Summary
+
+Tested on ~1 billion molecules:
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dataset size</td>
+      <td>~1 Billion molecules</td>
+    </tr>
+    <tr>
+      <td>Index build time</td>
+      <td>~14 hours (one-time cost)</td>
+    </tr>
+    <tr>
+      <td>Query time</td>
+      <td>~1 second per query (CPU only)</td>
+    </tr>
+    <tr>
+      <td>Memory usage</td>
+      <td>~12–14 GB RAM</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### 📈 Performance visualization
+
+```text
+Index build (one-time)
+████████████████████████████████████████ 14 hours
+
+Query time
+█ 1 second
+
+Memory usage
+██████████████ 12–14 GB
