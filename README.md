@@ -81,7 +81,7 @@ cmake ..
 make -j$(nproc)
 ```
 
-## 🚀 Usage
+##  Usage
 
 ### 1. Prepare data
 
@@ -156,19 +156,19 @@ Other metrics and an example
 
 ## 📊 Performance
 
-### 🚀 Summary
+###  Summary 
 
 Tested on ~1 billion molecules:
 
-## 📊 Performance
+##  Performance
 
-### 🚀 Summary + Visualization (Side by Side)
+### 📈  Summary + Visualization (Side by Side)
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
-### 🚀 Summary
+###  Summary
 
 <table>
   <thead>
@@ -201,7 +201,7 @@ Tested on ~1 billion molecules:
 
 <td width="50%" valign="top">
 
-### 📈 Visualization
+### 📈
 
 ```text
 Index build (one-time)
