@@ -81,3 +81,59 @@ mkdir build && cd build
 
 cmake ..
 make -j$(nproc)
+```
+
+## 🚀 Usage
+
+### 1. Prepare data
+
+Input file must be a SMILES file named:
+
+```bash
+data/tam.smi
+./build_index
+./search_index
+SMILES (exit ile cik): CC1=CC=CC=C1
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Effect on Accuracy</th>
+      <th>Effect on Speed</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--metric</code></td>
+      <td>Similarity metric used for reranking results</td>
+      <td>High (defines final ranking)</td>
+      <td>Low impact</td>
+      <td><code>tanimoto</code></td>
+    </tr>
+    <tr>
+      <td><code>--k</code></td>
+      <td>Number of candidates retrieved from FAISS before reranking</td>
+      <td>Higher → better recall</td>
+      <td>Higher → slower reranking</td>
+      <td><code>5000</code></td>
+    </tr>
+    <tr>
+      <td><code>--nprobe</code></td>
+      <td>Number of clusters searched in FAISS (IVF search scope)</td>
+      <td>Higher → better accuracy</td>
+      <td>Higher → slower search</td>
+      <td><code>32</code></td>
+    </tr>
+    <tr>
+      <td><code>--max_codes</code></td>
+      <td>Maximum number of codes scanned during search (limits computation)</td>
+      <td>Lower → less accurate</td>
+      <td>Lower → faster</td>
+      <td><code>0</code> (disabled)</td>
+    </tr>
+  </tbody>
+</table>
