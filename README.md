@@ -262,8 +262,8 @@ make install
 
 
 
-git clone https://github.com/YOUR_USERNAME/chem-faiss-search.git
-cd chem-faiss-search
+git clone https://github.com/onuryus/BSCS.git
+cd BSCS
 
 rm -rf build
 mkdir build && cd build
