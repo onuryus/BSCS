@@ -278,14 +278,21 @@ make -j$(nproc)
 
 ### 1. Prepare data
 
-Input file must be a SMILES file named:
+The input file must be a SMILES file named `tam.smi` and placed inside the `data` directory:
 
 ```bash
 data/tam.smi
+```
+To run the build_index or search_index programs, navigate to the build directory and execute the commands below:
+
+```bash
 ./build_index
 ./search_index
 SMILES (exit ile cik): CC1=CC=CC=C1
 ```
+1. On the first run, build the index file  
+2. Then, run the search program
+
 
 Other metrics and an example
 
