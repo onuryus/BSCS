@@ -162,7 +162,7 @@ Tested on ~1 billion molecules:
 
 ##  Performance
 
-### 📈  Summary + Visualization (Side by Side)
+### 📈  Summary
 
 <table>
 <tr>
