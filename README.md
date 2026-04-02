@@ -27,7 +27,7 @@ It uses Morgan fingerprints, FAISS IVFPQ indexing, and exact reranking with mult
  
 ## How it works
 
-```text
+text
 SMILES
   -> RDKit molecule
   -> Morgan fingerprint (2048-bit)
