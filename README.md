@@ -160,63 +160,58 @@ Other metrics and an example
 
 Tested on ~1 billion molecules:
 
-<h2>📊 Performance</h2>
+## 📊 Performance
 
-<p><strong>Tested on ~1 billion molecules</strong></p>
+### 🚀 Summary + Visualization (Side by Side)
 
 <table>
-  <tr>
-    <!-- LEFT: TABLE -->
-    <td valign="top">
+<tr>
+<td width="50%" valign="top">
 
-      <table>
-        <thead>
-          <tr>
-            <th>Metric</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Dataset size</td>
-            <td>~1 Billion molecules</td>
-          </tr>
-          <tr>
-            <td>Index build time</td>
-            <td>~14 hours</td>
-          </tr>
-          <tr>
-            <td>Query time</td>
-            <td>~1 second (CPU)</td>
-          </tr>
-          <tr>
-            <td>Memory usage</td>
-            <td>~12–14 GB RAM</td>
-          </tr>
-        </tbody>
-      </table>
+### 🚀 Summary
 
-    </td>
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dataset size</td>
+      <td>~1 Billion molecules</td>
+    </tr>
+    <tr>
+      <td>Index build time</td>
+      <td>~14 hours (one-time cost)</td>
+    </tr>
+    <tr>
+      <td>Query time</td>
+      <td>~1 second per query (CPU only)</td>
+    </tr>
+    <tr>
+      <td>Memory usage</td>
+      <td>~12–14 GB RAM</td>
+    </tr>
+  </tbody>
+</table>
 
-    <!-- RIGHT: VISUAL -->
-    <td valign="top">
+</td>
 
-<pre>
+<td width="50%" valign="top">
+
+### 📈 Visualization
+
+```text
 Index build (one-time)
-████████████████████████████████████████ 14h
+████████████████████████████████████████ 14 hours
 
 Query time
-█ 1s
+█ 1 second
 
 Memory usage
 ██████████████ 12–14 GB
-</pre>
-
-    </td>
-  </tr>
-</table>
-
----
 
 <p><strong>⚡ Note:</strong> Indexing is a one-time cost.  
 Once the index is built, it can be reused for all future searches without rebuilding.</p>
