@@ -96,6 +96,19 @@ data/tam.smi
 SMILES (exit ile cik): CC1=CC=CC=C1
 ```
 
+Other metrics and an example
+
+```bash
+--metric tanimoto
+--metric dice
+--metric tversky
+--metric cosine
+--metric kulczynski
+./search_index --metric dice --k 3000 --nprobe 64
+```
+
+
+
 <table>
   <thead>
     <tr>
