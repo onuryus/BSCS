@@ -20,9 +20,7 @@ It uses Morgan fingerprints, FAISS IVFPQ indexing, and exact reranking with mult
 - Search-time tuning with:
   - `--metric`
   - `--k`
-  - `--nprobe`
-  - `--max_codes`
- 
+  - `--nprobe` 
 ## How it works
 
 text
