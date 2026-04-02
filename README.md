@@ -300,6 +300,16 @@ Other metrics and an example
 
 
 
+###Output
+After the search process is completed, the results are automatically saved to a file named <code>result.txt</code> inside the <code>build/</code> directory.
+
+
+<pre><code>build/result.txt
+</code></pre>
+
+This file contains the ranked search results, including molecule IDs, similarity scores, and corresponding SMILES strings.
+
+
 <table>
   <thead>
     <tr>
