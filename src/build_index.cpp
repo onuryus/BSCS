@@ -21,19 +21,36 @@
 using namespace std;
 using namespace RDKit;
 
-static const int DIM = 2048;
-
 // fingerprint -> float
-static inline void fp_to_float_inplace(const ExplicitBitVect* fp, float* out) {
-    std::fill(out, out + DIM, 0.0f);
-    for (int i = 0; i < DIM; i++) {
+static inline void fp_to_float_inplace(const ExplicitBitVect* fp, float* out, int dim) {
+    std::fill(out, out + dim, 0.0f);
+    for (int i = 0; i < dim; i++) {
         if (fp->getBit(i)) out[i] = 1.0f;
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
 
     cout << " STARTED (ULTRA OPT STREAMING + ETA)\n";
+
+    // ===== CLI PARAMS =====
+    int radius = 2;
+    int nbits_fp = 2048;
+
+    for (int i = 1; i < argc; i++) {
+        string arg = argv[i];
+
+        if (arg == "--radius" && i + 1 < argc)
+            radius = stoi(argv[++i]);
+
+        else if (arg == "--nbits" && i + 1 < argc)
+            nbits_fp = stoi(argv[++i]);
+    }
+
+    cout << " FP radius: " << radius << "\n";
+    cout << " FP bits: " << nbits_fp << "\n";
+
+    const int DIM = nbits_fp;
 
     const string input_file = "../data/tam.smi";
     const string out_index = "../index/tam_ivfpq_stream.index";
@@ -95,7 +112,7 @@ int main() {
         }
 
         unique_ptr<ExplicitBitVect> fp(
-            MorganFingerprints::getFingerprintAsBitVect(*mol, 2, DIM)
+            MorganFingerprints::getFingerprintAsBitVect(*mol, radius, nbits_fp)
         );
 
         size_t idx;
@@ -103,7 +120,7 @@ int main() {
         #pragma omp atomic capture
         idx = valid_train++;
 
-        fp_to_float_inplace(fp.get(), train_matrix.data() + idx * DIM);
+        fp_to_float_inplace(fp.get(), train_matrix.data() + idx * DIM, DIM);
     }
 
     faiss::IndexFlatL2 quantizer(DIM);
@@ -159,10 +176,10 @@ int main() {
                 }
 
                 unique_ptr<ExplicitBitVect> fp(
-                    MorganFingerprints::getFingerprintAsBitVect(*mol, 2, DIM)
+                    MorganFingerprints::getFingerprintAsBitVect(*mol, radius, nbits_fp)
                 );
 
-                fp_to_float_inplace(fp.get(), matrix.data() + i * DIM);
+                fp_to_float_inplace(fp.get(), matrix.data() + i * DIM, DIM);
                 valid[i] = 1;
             }
 
