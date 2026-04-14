@@ -260,7 +260,7 @@ make -j$(nproc)
 make install
 
 
-
+cd ../..
 
 git clone https://github.com/onuryus/BSCS.git
 cd BSCS
