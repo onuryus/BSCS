@@ -19,8 +19,6 @@
 using namespace std;
 using namespace RDKit;
 
-static const int DIM = 2048;
-
 enum SimilarityType {
     TANIMOTO,
     DICE,
@@ -37,9 +35,9 @@ SimilarityType parse_metric(const string& m) {
     return TANIMOTO; // default
 }
 
-double compute_cosine(const ExplicitBitVect& a, const ExplicitBitVect& b) {
+double compute_cosine(const ExplicitBitVect& a, const ExplicitBitVect& b, int dim) {
     double dot = 0, na = 0, nb = 0;
-    for (int i = 0; i < DIM; i++) {
+    for (int i = 0; i < dim; i++) {
         int va = a.getBit(i);
         int vb = b.getBit(i);
         dot += va * vb;
@@ -51,7 +49,8 @@ double compute_cosine(const ExplicitBitVect& a, const ExplicitBitVect& b) {
 
 double compute_similarity(SimilarityType type,
                           const ExplicitBitVect& qfp,
-                          const ExplicitBitVect& fp) {
+                          const ExplicitBitVect& fp,
+                          int dim) {
 
     switch (type) {
         case DICE:
@@ -59,7 +58,7 @@ double compute_similarity(SimilarityType type,
         case TVERSKY:
             return TverskySimilarity(qfp, fp, 0.7, 0.3);
         case COSINE:
-            return compute_cosine(qfp, fp);
+            return compute_cosine(qfp, fp, dim);
         case KULCZYNSKI:
             return KulczynskiSimilarity(qfp, fp);
         case TANIMOTO:
@@ -68,9 +67,9 @@ double compute_similarity(SimilarityType type,
     }
 }
 
-static inline void fp_to_float_inplace(const ExplicitBitVect* fp, float* out) {
-    std::fill(out, out + DIM, 0.0f);
-    for (int i = 0; i < DIM; i++) {
+static inline void fp_to_float_inplace(const ExplicitBitVect* fp, float* out, int dim) {
+    std::fill(out, out + dim, 0.0f);
+    for (int i = 0; i < dim; i++) {
         if (fp->getBit(i)) out[i] = 1.0f;
     }
 }
@@ -106,6 +105,10 @@ int main(int argc, char* argv[]) {
     int nprobe = 32;
     size_t max_codes = 0;
 
+    // 🔥 NEW PARAMS
+    int radius = 2;
+    int nbits_fp = 2048;
+
     // CLI parsing
     for (int i = 1; i < argc; i++) {
         string arg = argv[i];
@@ -122,7 +125,15 @@ int main(int argc, char* argv[]) {
         else if (arg == "--max_codes" && i + 1 < argc) {
             max_codes = stoull(argv[++i]);
         }
+        else if (arg == "--radius" && i + 1 < argc) {
+            radius = stoi(argv[++i]);
+        }
+        else if (arg == "--nbits" && i + 1 < argc) {
+            nbits_fp = stoi(argv[++i]);
+        }
     }
+
+    const int DIM = nbits_fp;
 
     SimilarityType sim_type = parse_metric(metric_name);
 
@@ -130,6 +141,8 @@ int main(int argc, char* argv[]) {
     cout << " Candidate K: " << candidate_k << "\n";
     cout << " nprobe: " << nprobe << "\n";
     cout << " max_codes: " << max_codes << "\n";
+    cout << " FP radius: " << radius << "\n";
+    cout << " FP bits: " << nbits_fp << "\n";
 
     const string smiles_path = "../data/tam.smi";
     const string offset_path = "../index/tam.offsets";
@@ -162,7 +175,7 @@ int main(int argc, char* argv[]) {
 
     while (true) {
         string query_smiles;
-        cout << "\nSMILES (exit ile cik): ";
+        cout << "\nSMILES (for exit write exit :) ): ";
         cin >> query_smiles;
 
         if (query_smiles == "exit") break;
@@ -174,11 +187,11 @@ int main(int argc, char* argv[]) {
         }
 
         unique_ptr<ExplicitBitVect> qfp(
-            MorganFingerprints::getFingerprintAsBitVect(*qmol, 2, DIM)
+            MorganFingerprints::getFingerprintAsBitVect(*qmol, radius, nbits_fp)
         );
 
         vector<float> qvec(DIM, 0.0f);
-        fp_to_float_inplace(qfp.get(), qvec.data());
+        fp_to_float_inplace(qfp.get(), qvec.data(), DIM);
 
         vector<float> D(candidate_k);
         vector<faiss::idx_t> I(candidate_k);
@@ -199,10 +212,10 @@ int main(int argc, char* argv[]) {
             if (!mol) continue;
 
             unique_ptr<ExplicitBitVect> fp(
-                MorganFingerprints::getFingerprintAsBitVect(*mol, 2, DIM)
+                MorganFingerprints::getFingerprintAsBitVect(*mol, radius, nbits_fp)
             );
 
-            double score = compute_similarity(sim_type, *qfp, *fp);
+            double score = compute_similarity(sim_type, *qfp, *fp, DIM);
 
             reranked.push_back({
                 id,
@@ -229,6 +242,8 @@ int main(int argc, char* argv[]) {
                         << " | score=" << reranked[i].score
                         << " | faiss_dist=" << reranked[i].faiss_distance
                         << " | SMILES=" << reranked[i].smiles
+                        << " | radius=" << radius
+                        << " | nbits=" << nbits_fp
                         << "\n";
         }
 
@@ -239,6 +254,8 @@ int main(int argc, char* argv[]) {
                  << " | score=" << reranked[i].score
                  << " | faiss_dist=" << reranked[i].faiss_distance
                  << " | SMILES=" << reranked[i].smiles
+                 << " | radius=" << radius
+                 << " | nbits=" << nbits_fp
                  << "\n";
         }
 

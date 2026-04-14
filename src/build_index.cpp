@@ -36,6 +36,7 @@ int main(int argc, char* argv[]) {
     // ===== CLI PARAMS =====
     int radius = 2;
     int nbits_fp = 2048;
+    size_t batch_size = 20000;  
 
     for (int i = 1; i < argc; i++) {
         string arg = argv[i];
@@ -45,10 +46,14 @@ int main(int argc, char* argv[]) {
 
         else if (arg == "--nbits" && i + 1 < argc)
             nbits_fp = stoi(argv[++i]);
+
+        else if (arg == "--batch" && i + 1 < argc)
+            batch_size = stoull(argv[++i]);
     }
 
     cout << " FP radius: " << radius << "\n";
     cout << " FP bits: " << nbits_fp << "\n";
+    cout << " Batch size: " << batch_size << "\n";
 
     const int DIM = nbits_fp;
 
@@ -61,7 +66,6 @@ int main(int argc, char* argv[]) {
     const int nbits = 8;
 
     const size_t train_target = 50000;
-    const size_t batch_size = 20000;
 
     system("mkdir -p ../index");
 
