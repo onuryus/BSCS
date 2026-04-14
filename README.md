@@ -284,10 +284,34 @@ data/tam.smi
 To run the build_index or search_index programs, navigate to the build directory and execute the commands below:
 
 ```bash
-./build_index
-./search_index
+./build_index \
+  --radius 3 \
+  --nbits 4096 \
+  --batch 100000
+
+./search_index \
+  --radius 3 \
+  --nbits 4096 \
+  --metric tanimoto \
+  --k 5000 \
+  --nprobe 64
+
 SMILES (exit ile cik): CC1=CC=CC=C1
 ```
+
+--radius	Morgan fingerprint radius (recommended: 2–3)
+--nbits	Fingerprint size (1024, 2048, 4096)
+--batch	Batch size (controls RAM vs speed)
+
+
+--radius	Must match build step ⚠️
+--nbits	Must match build step ⚠️
+--metric	Similarity metric
+--k	Number of candidates
+--nprobe	FAISS search depth
+
+
+
 1. On the first run, build the index file  
 2. Then, run the search program
 
