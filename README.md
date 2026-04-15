@@ -304,8 +304,8 @@ SMILES (exit ile cik): CC1=CC=CC=C1
 --batch	Batch size (controls RAM vs speed)
 
 
---radius	Must match build step ⚠️
---nbits	Must match build step ⚠️
+--radius	Must match build step 
+--nbits	Must match build step 
 --metric	Similarity metric
 --k	Number of candidates
 --nprobe	FAISS search depth
