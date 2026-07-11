@@ -1,3 +1,20 @@
+<table width="100%">
+  <tr>
+    <td width="35%" align="left" valign="middle">
+      <h1>BSCS-Billion-Scale Chemical Similarity Search</h1>
+    </td>
+    <td width="65%" align="right" valign="middle">
+      <img
+        src="./pic/bscs-logo.svg"
+        alt="BSCS Logo"
+        width="450"
+      />
+    </td>
+  </tr>
+</table>
+
+
+
 # Billion-Scale Chemical Similarity Search
 
 A high-performance chemical search engine built with C++, RDKit and FAISS for million to billion scale molecular libraries.
