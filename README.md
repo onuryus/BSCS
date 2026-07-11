@@ -2,6 +2,7 @@
   <tr>
     <td width="35%" align="left" valign="middle">
       <h1>BSCS-Billion-Scale Chemical Similarity Search</h1>
+      <h1>Billion-Scale Chemical Similarity Search</h1>
     </td>
     <td width="65%" align="right" valign="middle">
       <img
